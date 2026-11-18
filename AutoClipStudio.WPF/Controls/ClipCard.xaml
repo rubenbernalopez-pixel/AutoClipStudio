@@ -1,0 +1,223 @@
+<UserControl x:Class="AutoClipStudio.WPF.Controls.ClipCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:AutoClipStudio.WPF.Converters"
+             mc:Ignorable="d"
+             d:DesignWidth="1100"
+             d:DesignHeight="400">
+
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVis"/>
+        <converters:ScoreToColorConverter x:Key="ScoreToColor"/>
+        <converters:ScoreToPercentConverter x:Key="ScoreToPercent"/>
+        <converters:TimeRangeConverter x:Key="TimeRangeConv"/>
+        <converters:LayoutToDisplayNameConverter x:Key="LayoutToName"/>
+        <converters:DurationToStringConverter x:Key="DurationToStr"/>
+    </UserControl.Resources>
+
+    <Border Style="{StaticResource CardHover}"
+            Margin="0,0,0,18"
+            x:Name="CardBorder">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <!-- Video Preview -->
+                <RowDefinition Height="Auto"/> <!-- Info -->
+                <RowDefinition Height="Auto"/> <!-- Actions -->
+            </Grid.RowDefinitions>
+
+            <!-- Video Preview Area (9:16 aspect) -->
+            <Border Grid.Row="0"
+                    Background="{StaticResource PrimaryDarkBrush}"
+                    CornerRadius="12,12,0,0"
+                    ClipToBounds="True">
+                <Grid x:Name="PreviewGrid">
+                    <!-- Thumbnail Image -->
+                    <Image x:Name="PreviewImage"
+                           Source="{Binding PreviewImage}"
+                           Stretch="UniformToFill"
+                           Visibility="{Binding HasPreview, Converter={StaticResource BoolToVis}}"/>
+
+                    <!-- Video Player (when playing) -->
+                    <MediaElement x:Name="VideoPlayer"
+                                  Source="{Binding VideoPath}"
+                                  LoadedBehavior="Manual"
+                                  UnloadedBehavior="Stop"
+                                  Stretch="UniformToFill"
+                                  Visibility="{Binding HasVideo, Converter={StaticResource BoolToVis}}"/>
+
+                    <!-- Play/Pause Overlay -->
+                    <Button x:Name="PlayOverlayBtn"
+                            Style="{StaticResource IconButton}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="72" Height="72"
+                            Command="{Binding PlayCommand}"
+                            Visibility="{Binding ShowPlayButton, Converter={StaticResource BoolToVis}}">
+                        <Button.Background>
+                            <SolidColorBrush Color="#CC000000"/>
+                        </Button.Background>
+                        <Path x:Name="PlayPauseIcon"
+                              Width="36" Height="36"
+                              Data="M8,5V19L19,12Z"
+                              Fill="White"
+                              RenderTransformOrigin="0.5,0.5">
+                            <Path.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Path.RenderTransform>
+                        </Path>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PlayPauseIcon"
+                                                         Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                         From="1" To="0.8" Duration="0:0:0.1"
+                                                         AutoReverse="True"/>
+                                        <DoubleAnimation Storyboard.TargetName="PlayPauseIcon"
+                                                         Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                         From="1" To="0.8" Duration="0:0:0.1"
+                                                         AutoReverse="True"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <!-- Duration Badge -->
+                    <Border Style="{StaticResource Badge}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Margin="0,0,16,16"
+                            Background="#CC000000">
+                        <TextBlock Style="{StaticResource BadgeText}"
+                                   Text="{Binding DurationText}"
+                                   FontFamily="{StaticResource FontFamilyMono}"/>
+                    </Border>
+
+                    <!-- Layout Badge -->
+                    <Border Style="{StaticResource Badge}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="16,16,0,0"
+                            Background="#CC1A1A2E">
+                        <TextBlock Style="{StaticResource BadgeText}"
+                                   Text="{Binding LayoutDisplayName}"
+                                   FontSize="10"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Clip Info -->
+            <Grid Grid.Row="1" Margin="20,20,20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/> <!-- Score Badge -->
+                    <ColumnDefinition Width="*"/>    <!-- Details -->
+                    <ColumnDefinition Width="Auto"/> <!-- Score Details Button -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Score Badge (Large) -->
+                <Border Grid.Column="0"
+                        Style="{StaticResource Badge}"
+                        Background="{Binding ScoreColor, Converter={StaticResource ScoreToColor}}"
+                        VerticalAlignment="Top"
+                        MinWidth="64"
+                        Height="64"
+                        Margin="0,0,16,0"
+                        CornerRadius="12">
+                    <Border.Effect>
+                        <DropShadowEffect Color="{Binding ScoreColor, Converter={StaticResource ScoreToColor}}" BlurRadius="12" ShadowDepth="0" Opacity="0.4"/>
+                    </Border.Effect>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Style="{StaticResource BadgeText}"
+                                   Text="{Binding ScorePercent}"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   FontFamily="{StaticResource FontFamilyMono}"/>
+                        <TextBlock Text="ÉXITO"
+                                   FontSize="8"
+                                   FontWeight="Medium"
+                                   Foreground="{StaticResource TextOnAccentBrush}"
+                                   Opacity="0.9"/>
+                    </StackPanel>
+                    <Border.ToolTip>
+                        <ToolTip Style="{StaticResource ToolTipStyle}" Content="{Binding ScoreExplanation}"/>
+                    </Border.ToolTip>
+                </Border>
+
+                <!-- Details -->
+                <StackPanel Grid.Column="1" Margin="0,0,16,0" VerticalAlignment="Center">
+                    <!-- Hook -->
+                    <TextBlock Style="{StaticResource BodyText}"
+                               Text="{Binding Hook}"
+                               MaxLines="2"
+                               TextTrimming="CharacterEllipsis"
+                               LineHeight="22"/>
+
+                    <!-- Meta Info Row -->
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <TextBlock Style="{StaticResource CaptionText}"
+                                   Text="{Binding TimecodeRange}"
+                                   FontFamily="{StaticResource FontFamilyMono}"/>
+                        <TextBlock Style="{StaticResource CaptionText}"
+                                   Text=" • "
+                                   Foreground="{StaticResource SurfaceBorderBrush}"/>
+                        <TextBlock Style="{StaticResource CaptionText}"
+                                   Text="{Binding LayoutDisplayName}"/>
+                        <TextBlock Style="{StaticResource CaptionText}"
+                                   Text=" • "
+                                   Foreground="{StaticResource SurfaceBorderBrush}"/>
+                        <TextBlock Style="{StaticResource CaptionText}"
+                                   Text="{Binding DurationText}"/>
+                        <TextBlock Style="{StaticResource CaptionText}"
+                                   Text=" • "
+                                   Foreground="{StaticResource SurfaceBorderBrush}"/>
+                        <TextBlock Style="{StaticResource CaptionText}"
+                                   Text="{Binding HashtagsPreview}"
+                                   Foreground="{StaticResource AccentBrush}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Score Details Button -->
+                <Button Grid.Column="2"
+                        Style="{StaticResource GhostButton}"
+                        Padding="12"
+                        ToolTip="{Binding ScoreExplanation}"
+                        Command="{Binding ShowScoreDetailsCommand}"
+                        VerticalAlignment="Top">
+                    <Path Width="20" Height="20"
+                          Data="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10Z"
+                          Fill="{StaticResource TextSecondaryBrush}"/>
+                </Button>
+            </Grid>
+
+            <!-- Actions Row -->
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        Margin="20,16,20,20">
+                <Button Style="{StaticResource PrimaryButton}"
+                        Content="📋 Copiar publicación"
+                        Command="{Binding CopySocialCopyCommand}"
+                        Margin="0,0,10,0"
+                        Padding="18,10"
+                        MinWidth="160">
+                    <Button.Effect>
+                        <DropShadowEffect Color="#E94560" BlurRadius="8" ShadowDepth="1" Opacity="0.3"/>
+                    </Button.Effect>
+                </Button>
+                <Button Style="{StaticResource SecondaryButton}"
+                        Content="✏️ Revisar subtítulos"
+                        Command="{Binding ReviewSubtitlesCommand}"
+                        Margin="0,0,10,0"
+                        Padding="18,10"
+                        MinWidth="160"/>
+                <Button Style="{StaticResource GhostButton}"
+                        Content="💾 Exportar MP4"
+                        Command="{Binding ExportCommand}"
+                        Padding="18,10"
+                        MinWidth="140"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

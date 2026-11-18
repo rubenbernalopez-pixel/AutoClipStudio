@@ -1,0 +1,16 @@
+faster-whisper==1.1.0
+yt-dlp==2024.7.12
+ffmpeg-python==0.2.0
+numpy==1.26.4
+torch==2.3.0
+torchaudio==2.3.0
+opencv-python==4.10.0.84
+pillow==10.3.0
+pydantic==2.7.1
+pydantic-settings==2.3.3
+python-json-logger==2.0.7
+rich==13.7.1
+click==8.1.7
+tqdm==4.66.4
+requests==2.32.3
+aiofiles==23.2.1

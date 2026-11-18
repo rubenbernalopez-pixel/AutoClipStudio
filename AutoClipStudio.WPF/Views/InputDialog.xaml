@@ -1,0 +1,54 @@
+<Window x:Class="AutoClipStudio.WPF.Services.InputDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Entrada"
+        Height="200"
+        Width="400"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource BackgroundBrush}"
+        Foreground="{StaticResource TextPrimaryBrush}"
+        FontFamily="{StaticResource FontFamilyPrimary}"
+        ResizeMode="NoResize"
+        SizeToContent="Height">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="MessageText"
+                   Grid.Row="0"
+                   Style="{StaticResource BodyText}"
+                   TextWrapping="Wrap"
+                   Margin="0,0,0,16"/>
+
+        <TextBox x:Name="InputTextBox"
+                 Grid.Row="1"
+                 Style="{StaticResource ModernTextBox}"
+                 Height="44"
+                 FontSize="15"
+                 KeyDown="InputTextBox_KeyDown"/>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,16,0,0">
+            <Button Style="{StaticResource SecondaryButton}"
+                    Content="Cancelar"
+                    Click="CancelButton_Click"
+                    Margin="0,0,12,0"
+                    MinWidth="100"
+                    IsCancel="True"/>
+            <Button Style="{StaticResource PrimaryButton}"
+                    Content="Aceptar"
+                    Click="OkButton_Click"
+                    MinWidth="100"
+                    IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

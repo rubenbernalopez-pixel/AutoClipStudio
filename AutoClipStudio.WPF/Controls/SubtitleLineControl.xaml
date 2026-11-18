@@ -1,0 +1,89 @@
+<UserControl x:Class="AutoClipStudio.WPF.Controls.SubtitleLineControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignWidth="600"
+             d:DesignHeight="100">
+
+    <UserControl.Resources>
+        <Style TargetType="Border" x:Key="WordBorderStyle">
+            <Setter Property="Padding" Value="4,2"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="ToolTip" Value="Click para corregir • Click derecho para escuchar"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Border Margin="0,0,0,8" Background="Transparent">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <!-- Timecode -->
+                <RowDefinition Height="Auto"/> <!-- Words -->
+            </Grid.RowDefinitions>
+
+            <!-- Timecode -->
+            <TextBlock Grid.Row="0"
+                       Style="{StaticResource MonoText}"
+                       Foreground="{StaticResource TextMutedBrush}"
+                       FontSize="11"
+                       Margin="0,0,0,4"
+                       Text="{Binding TimecodeRange}"/>
+
+            <!-- Words WrapPanel -->
+            <ItemsControl Grid.Row="1"
+                          ItemsSource="{Binding Words}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" ItemWidth="Auto"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource WordBorderStyle}"
+                                x:Name="WordBorder"
+                                Margin="2,1"
+                                Background="{Binding StateBackground}"
+                                BorderBrush="{Binding StateBorder}"
+                                BorderThickness="{Binding StateBorderThickness}">
+                            <TextBlock Text="{Binding WordText}"
+                                       Style="{StaticResource BodyText}"
+                                       FontWeight="Medium"
+                                       FontSize="14"
+                                       Foreground="{Binding StateForeground}"/>
+                        </Border>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding State}" Value="Pending">
+                                <Setter TargetName="WordBorder" Property="Background" Value="Transparent"/>
+                                <Setter TargetName="WordBorder" Property="BorderBrush" Value="Transparent"/>
+                                <Setter TargetName="WordBorder" Property="BorderThickness" Value="0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="Active">
+                                <Setter TargetName="WordBorder" Property="Background" Value="#30FFD700"/>
+                                <Setter TargetName="WordBorder" Property="BorderBrush" Value="{StaticResource SubtitleActiveBrush}"/>
+                                <Setter TargetName="WordBorder" Property="BorderThickness" Value="1"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="Done">
+                                <Setter TargetName="WordBorder" Property="Background" Value="Transparent"/>
+                                <Setter TargetName="WordBorder" Property="BorderBrush" Value="Transparent"/>
+                                <Setter TargetName="WordBorder" Property="BorderThickness" Value="0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="Corrected">
+                                <Setter TargetName="WordBorder" Property="Background" Value="#30E94560"/>
+                                <Setter TargetName="WordBorder" Property="BorderBrush" Value="{StaticResource SubtitleCorrectedBrush}"/>
+                                <Setter TargetName="WordBorder" Property="BorderThickness" Value="2"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="LowConfidence">
+                                <Setter TargetName="WordBorder" Property="Background" Value="#3000FFFF"/>
+                                <Setter TargetName="WordBorder" Property="BorderBrush" Value="{StaticResource SubtitleLowConfBrush}"/>
+                                <Setter TargetName="WordBorder" Property="BorderThickness" Value="2"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,161 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- AutoClip Studio Color Palette - Windows 11 Mica/Acrylic compatible -->
+
+    <!-- Primary Brand Colors -->
+    <Color x:Key="PrimaryColor">#1A1A2E</Color>
+    <Color x:Key="PrimaryLightColor">#16213E</Color>
+    <Color x:Key="PrimaryDarkColor">#0F0F1A</Color>
+
+    <Color x:Key="AccentColor">#E94560</Color>
+    <Color x:Key="AccentLightColor">#F26B7A</Color>
+    <Color x:Key="AccentDarkColor">#C4374D</Color>
+
+    <Color x:Key="SecondaryColor">#0F3460</Color>
+    <Color x:Key="SecondaryLightColor">#1A4A7A</Color>
+
+    <!-- Semantic Colors -->
+    <Color x:Key="SuccessColor">#00C853</Color>
+    <Color x:Key="WarningColor">#FFD600</Color>
+    <Color x:Key="ErrorColor">#FF1744</Color>
+    <Color x:Key="InfoColor">#2979FF</Color>
+
+    <!-- Subtitle Colors (karaoke spec) -->
+    <Color x:Key="SubtitleActiveColor">#FFD700</Color>
+    <Color x:Key="SubtitleDoneColor">#00FF7F</Color>
+    <Color x:Key="SubtitlePendingColor">#FFFFFF</Color>
+    <Color x:Key="SubtitleOutlineColor">#000000</Color>
+    <Color x:Key="SubtitleLowConfColor">#00FFFF</Color>
+    <Color x:Key="SubtitleCorrectedColor">#FFE900</Color>
+
+    <!-- Surface Colors (Mica/Acrylic compatible) -->
+    <Color x:Key="SurfaceColor">#1E1E2E</Color>
+    <Color x:Key="SurfaceLightColor">#25253A</Color>
+    <Color x:Key="SurfaceDarkColor">#181825</Color>
+    <Color x:Key="SurfaceBorderColor">#33334A</Color>
+
+    <!-- Background Colors -->
+    <Color x:Key="BackgroundColor">#141421</Color>
+    <Color x:Key="BackgroundLightColor">#1A1A2E</Color>
+
+    <!-- Text Colors -->
+    <Color x:Key="TextPrimaryColor">#FFFFFF</Color>
+    <Color x:Key="TextSecondaryColor">#B0B0C8</Color>
+    <Color x:Key="TextMutedColor">#787890</Color>
+    <Color x:Key="TextOnAccentColor">#FFFFFF</Color>
+    <Color x:Key="TextOnPrimaryColor">#FFFFFF</Color>
+
+    <!-- Input Colors -->
+    <Color x:Key="InputBackgroundColor">#1E1E2E</Color>
+    <Color x:Key="InputBorderColor">#33334A</Color>
+    <Color x:Key="InputBorderFocusColor">#E94560</Color>
+    <Color x:Key="InputPlaceholderColor">#787890</Color>
+
+    <!-- Button Colors -->
+    <Color x:Key="ButtonPrimaryBackground">#E94560</Color>
+    <Color x:Key="ButtonPrimaryHover">#F26B7A</Color>
+    <Color x:Key="ButtonPrimaryPressed">#C4374D</Color>
+    <Color x:Key="ButtonPrimaryDisabled">#4A2A30</Color>
+
+    <Color x:Key="ButtonSecondaryBackground">#25253A</Color>
+    <Color x:Key="ButtonSecondaryHover">#2D2D44</Color>
+    <Color x:Key="ButtonSecondaryPressed">#1E1E2E</Color>
+    <Color x:Key="ButtonSecondaryBorder">#33334A</Color>
+
+    <Color x:Key="ButtonGhostBackground">Transparent</Color>
+    <Color x:Key="ButtonGhostHover">#25253A</Color>
+
+    <!-- Progress Colors -->
+    <Color x:Key="ProgressBackground">#1E1E2E</Color>
+    <Color x:Key="ProgressForeground">#E94560</Color>
+    <Color x:Key="ProgressCompleted">#00C853</Color>
+
+    <!-- ScrollBar Colors -->
+    <Color x:Key="ScrollBarBackground">Transparent</Color>
+    <Color x:Key="ScrollBarThumb">#33334A</Color>
+    <Color x:Key="ScrollBarThumbHover">#44445A</Color>
+
+    <!-- Selection Colors -->
+    <Color x:Key="SelectionColor">#E94560</Color>
+    <Color x:Key="SelectionTextColor">#FFFFFF</Color>
+
+    <!-- Focus Colors -->
+    <Color x:Key="FocusBorderColor">#E94560</Color>
+    <Color x:Key="FocusShadowColor">#E9456040</Color>
+
+    <!-- Drop Shadow -->
+    <Color x:Key="ShadowColor">#00000080</Color>
+
+    <!-- SolidColorBrush Resources -->
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="PrimaryLightBrush" Color="{StaticResource PrimaryLightColor}"/>
+    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
+
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
+    <SolidColorBrush x:Key="AccentLightBrush" Color="{StaticResource AccentLightColor}"/>
+    <SolidColorBrush x:Key="AccentDarkBrush" Color="{StaticResource AccentDarkColor}"/>
+
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}"/>
+    <SolidColorBrush x:Key="SecondaryLightBrush" Color="{StaticResource SecondaryLightColor}"/>
+
+    <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
+    <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}"/>
+    <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}"/>
+    <SolidColorBrush x:Key="InfoBrush" Color="{StaticResource InfoColor}"/>
+
+    <SolidColorBrush x:Key="SubtitleActiveBrush" Color="{StaticResource SubtitleActiveColor}"/>
+    <SolidColorBrush x:Key="SubtitleDoneBrush" Color="{StaticResource SubtitleDoneColor}"/>
+    <SolidColorBrush x:Key="SubtitlePendingBrush" Color="{StaticResource SubtitlePendingColor}"/>
+    <SolidColorBrush x:Key="SubtitleOutlineBrush" Color="{StaticResource SubtitleOutlineColor}"/>
+    <SolidColorBrush x:Key="SubtitleLowConfBrush" Color="{StaticResource SubtitleLowConfColor}"/>
+    <SolidColorBrush x:Key="SubtitleCorrectedBrush" Color="{StaticResource SubtitleCorrectedColor}"/>
+
+    <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/>
+    <SolidColorBrush x:Key="SurfaceLightBrush" Color="{StaticResource SurfaceLightColor}"/>
+    <SolidColorBrush x:Key="SurfaceDarkBrush" Color="{StaticResource SurfaceDarkColor}"/>
+    <SolidColorBrush x:Key="SurfaceBorderBrush" Color="{StaticResource SurfaceBorderColor}"/>
+
+    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+    <SolidColorBrush x:Key="BackgroundLightBrush" Color="{StaticResource BackgroundLightColor}"/>
+
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}"/>
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}"/>
+    <SolidColorBrush x:Key="TextMutedBrush" Color="{StaticResource TextMutedColor}"/>
+    <SolidColorBrush x:Key="TextOnAccentBrush" Color="{StaticResource TextOnAccentColor}"/>
+    <SolidColorBrush x:Key="TextOnPrimaryBrush" Color="{StaticResource TextOnPrimaryColor}"/>
+
+    <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource InputBackgroundColor}"/>
+    <SolidColorBrush x:Key="InputBorderBrush" Color="{StaticResource InputBorderColor}"/>
+    <SolidColorBrush x:Key="InputBorderFocusBrush" Color="{StaticResource InputBorderFocusColor}"/>
+    <SolidColorBrush x:Key="InputPlaceholderBrush" Color="{StaticResource InputPlaceholderColor}"/>
+
+    <SolidColorBrush x:Key="ButtonPrimaryBackgroundBrush" Color="{StaticResource ButtonPrimaryBackground}"/>
+    <SolidColorBrush x:Key="ButtonPrimaryHoverBrush" Color="{StaticResource ButtonPrimaryHover}"/>
+    <SolidColorBrush x:Key="ButtonPrimaryPressedBrush" Color="{StaticResource ButtonPrimaryPressed}"/>
+    <SolidColorBrush x:Key="ButtonPrimaryDisabledBrush" Color="{StaticResource ButtonPrimaryDisabled}"/>
+
+    <SolidColorBrush x:Key="ButtonSecondaryBackgroundBrush" Color="{StaticResource ButtonSecondaryBackground}"/>
+    <SolidColorBrush x:Key="ButtonSecondaryHoverBrush" Color="{StaticResource ButtonSecondaryHover}"/>
+    <SolidColorBrush x:Key="ButtonSecondaryPressedBrush" Color="{StaticResource ButtonSecondaryPressed}"/>
+    <SolidColorBrush x:Key="ButtonSecondaryBorderBrush" Color="{StaticResource ButtonSecondaryBorder}"/>
+
+    <SolidColorBrush x:Key="ButtonGhostBackgroundBrush" Color="{StaticResource ButtonGhostBackground}"/>
+    <SolidColorBrush x:Key="ButtonGhostHoverBrush" Color="{StaticResource ButtonGhostHover}"/>
+
+    <SolidColorBrush x:Key="ProgressBackgroundBrush" Color="{StaticResource ProgressBackground}"/>
+    <SolidColorBrush x:Key="ProgressForegroundBrush" Color="{StaticResource ProgressForeground}"/>
+    <SolidColorBrush x:Key="ProgressCompletedBrush" Color="{StaticResource ProgressCompleted}"/>
+
+    <SolidColorBrush x:Key="ScrollBarBackgroundBrush" Color="{StaticResource ScrollBarBackground}"/>
+    <SolidColorBrush x:Key="ScrollBarThumbBrush" Color="{StaticResource ScrollBarThumb}"/>
+    <SolidColorBrush x:Key="ScrollBarThumbHoverBrush" Color="{StaticResource ScrollBarThumbHover}"/>
+
+    <SolidColorBrush x:Key="SelectionBrush" Color="{StaticResource SelectionColor}"/>
+    <SolidColorBrush x:Key="SelectionTextBrush" Color="{StaticResource SelectionTextColor}"/>
+
+    <SolidColorBrush x:Key="FocusBorderBrush" Color="{StaticResource FocusBorderColor}"/>
+    <SolidColorBrush x:Key="FocusShadowBrush" Color="{StaticResource FocusShadowColor}"/>
+
+    <SolidColorBrush x:Key="ShadowBrush" Color="{StaticResource ShadowColor}"/>
+</ResourceDictionary>
