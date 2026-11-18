@@ -1,0 +1,5 @@
+C:\Users\ruben\Desktop\AutoClipStudio\src\AutoClipStudio.Core\obj\Release\net8.0\AutoClipStudio.Core.csproj.AssemblyReference.cache
+C:\Users\ruben\Desktop\AutoClipStudio\src\AutoClipStudio.Core\obj\Release\net8.0\AutoClipStudio.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ruben\Desktop\AutoClipStudio\src\AutoClipStudio.Core\obj\Release\net8.0\AutoClipStudio.Core.AssemblyInfoInputs.cache
+C:\Users\ruben\Desktop\AutoClipStudio\src\AutoClipStudio.Core\obj\Release\net8.0\AutoClipStudio.Core.AssemblyInfo.cs
+C:\Users\ruben\Desktop\AutoClipStudio\src\AutoClipStudio.Core\obj\Release\net8.0\AutoClipStudio.Core.csproj.CoreCompileInputs.cache
