@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="AutoClip Studio"
+           Version="1.0.0"
+           Manufacturer="AutoClip Studio Team"
+           UpgradeCode="A1B2C3D4-E5F6-7890-ABCD-EF1234567890"
+           InstallerVersion="500"
+           Compressed="yes"
+           InstallScope="perMachine"
+           Platform="x64"
+           Languages="es-ES"
+           SummaryCodepage="1252"
+           Description="AutoClip Studio - Generador de clips de pódcast para redes sociales"
+           Comments="Crea clips verticales para Instagram Reels, TikTok y YouTube Shorts"
+           Keywords="podcast,clips,video,editor,reels,shorts,tiktok" />
+
+  <MajorUpgrade DowngradeErrorMessage="Ya hay una versión más reciente instalada." />
+
+  <MediaTemplate EmbedCab="yes" />
+
+  <Feature Id="MainProduct" Title="AutoClip Studio" Level="1">
+    <ComponentGroupRef Id="ProductComponents" />
+    <ComponentGroupRef Id="PythonComponents" />
+    <ComponentGroupRef Id="AssetComponents" />
+    <ComponentGroupRef Id="ShortcutComponents" />
+  </Feature>
+
+  <!-- Application Files -->
+  <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+    <Component>
+      <File Source="$(var.BuildOutput)\AutoClipStudio.exe" KeyPath="yes" />
+      <File Source="$(var.BuildOutput)\AutoClipStudio.Core.dll" />
+      <File Source="$(var.BuildOutput)\CommunityToolkit.Mvvm.dll" />
+      <File Source="$(var.BuildOutput)\Microsoft.Extensions.DependencyInjection.dll" />
+      <File Source="$(var.BuildOutput)\Microsoft.Extensions.Hosting.dll" />
+      <File Source="$(var.BuildOutput)\Microsoft.Extensions.Logging.dll" />
+      <File Source="$(var.BuildOutput)\Microsoft.Extensions.Logging.Abstractions.dll" />
+      <File Source="$(var.BuildOutput)\Newtonsoft.Json.dll" />
+      <File Source="$(var.BuildOutput)\System.Text.Json.dll" />
+      <File Source="$(var.BuildOutput)\Wpf.Ui.dll" />
+      <File Source="$(var.BuildOutput)\MaterialDesignThemes.dll" />
+      <File Source="$(var.BuildOutput)\MaterialDesignColors.dll" />
+      <File Source="$(var.BuildOutput)\FFMpegCore.dll" />
+      <File Source="$(var.BuildOutput)\YoutubeExplode.dll" />
+      <File Source="$(var.BuildOutput)\appsettings.json" />
+    </Component>
+
+    <!-- Themes and Resources -->
+    <Component>
+      <CreateFolder Directory="ThemesFolder" />
+      <File Source="$(var.BuildOutput)\Themes\Colors.xaml" />
+      <File Source="$(var.BuildOutput)\Themes\Styles.xaml" />
+      <File Source="$(var.BuildOutput)\Themes\Controls.xaml" />
+    </Component>
+  </ComponentGroup>
+
+  <!-- Python Backend -->
+  <ComponentGroup Id="PythonComponents" Directory="PythonFolder">
+    <Component>
+      <CreateFolder Directory="PythonFolder" />
+      <!-- Embedded Python will be copied here by build script -->
+    </Component>
+
+    <Component>
+      <CreateFolder Directory="AutoClipStudioPythonFolder" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\__init__.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\main.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\models\__init__.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\models\job.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\models\layout.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\services\__init__.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\services\download_service.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\services\transcription_service.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\services\clip_selector.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\services\layout_renderer.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\services\subtitle_generator.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\services\video_processor.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\utils\__init__.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\utils\config.py" />
+      <File Source="$(var.PythonSource)\auto_clip_studio\utils\logger.py" />
+    </Component>
+  </ComponentGroup>
+
+  <!-- Assets (Backgrounds, Fonts, Icons) -->
+  <ComponentGroup Id="AssetComponents" Directory="AssetsFolder">
+    <Component>
+      <CreateFolder Directory="BackgroundsFolder" />
+      <File Source="$(var.AssetsSource)\backgrounds\balls_hoops.mp4" />
+      <File Source="$(var.AssetsSource)\backgrounds\balls_hoops_thumb.jpg" />
+      <File Source="$(var.AssetsSource)\backgrounds\block_parkour.mp4" />
+      <File Source="$(var.AssetsSource)\backgrounds\block_parkour_thumb.jpg" />
+    </Component>
+
+    <Component>
+      <CreateFolder Directory="FontsFolder" />
+      <File Source="$(var.AssetsSource)\fonts\Inter-VariableFont.ttf" />
+      <File Source="$(var.AssetsSource)\fonts\JetBrainsMono-VariableFont.ttf" />
+    </Component>
+
+    <Component>
+      <CreateFolder Directory="IconsFolder" />
+      <File Source="$(var.AssetsSource)\icons\app.ico" />
+      <File Source="$(var.AssetsSource)\icons\app_16.png" />
+      <File Source="$(var.AssetsSource)\icons\app_32.png" />
+      <File Source="$(var.AssetsSource)\icons\app_48.png" />
+      <File Source="$(var.AssetsSource)\icons\app_256.png" />
+    </Component>
+  </ComponentGroup>
+
+  <!-- Shortcuts -->
+  <ComponentGroup Id="ShortcutComponents" Directory="ProgramMenuFolder">
+    <Component>
+      <Shortcut Id="StartMenuShortcut"
+                Name="AutoClip Studio"
+                Description="Generador de clips de pódcast para redes sociales"
+                Target="[INSTALLFOLDER]AutoClipStudio.exe"
+                WorkingDirectory="INSTALLFOLDER"
+                Icon="AppIcon.ico"
+                IconIndex="0" />
+    </Component>
+
+    <Component>
+      <Shortcut Id="DesktopShortcut"
+                Name="AutoClip Studio"
+                Description="Generador de clips de pódcast para redes sociales"
+                Target="[INSTALLFOLDER]AutoClipStudio.exe"
+                WorkingDirectory="INSTALLFOLDER"
+                Icon="AppIcon.ico"
+                IconIndex="0" />
+      <RegistryValue Root="HKCU"
+                     Key="Software\AutoClipStudio"
+                     Name="DesktopShortcut"
+                     Value="1"
+                     Type="integer" />
+    </Component>
+  </ComponentGroup>
+
+  <!-- Directories -->
+  <Directory Id="TARGETDIR" Name="SourceDir">
+    <Directory Id="ProgramFiles64Folder" Name="Program Files">
+      <Directory Id="INSTALLFOLDER" Name="AutoClipStudio">
+        <Directory Id="ThemesFolder" Name="Themes" />
+        <Directory Id="PythonFolder" Name="Python">
+          <Directory Id="AutoClipStudioPythonFolder" Name="auto_clip_studio">
+            <Directory Id="ModelsFolder" Name="models" />
+            <Directory Id="ServicesFolder" Name="services" />
+            <Directory Id="UtilsFolder" Name="utils" />
+          </Directory>
+        </Directory>
+        <Directory Id="AssetsFolder" Name="Assets">
+          <Directory Id="BackgroundsFolder" Name="backgrounds" />
+          <Directory Id="FontsFolder" Name="fonts" />
+          <Directory Id="IconsFolder" Name="icons" />
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Directory Id="ProgramMenuFolder" Name="Programs">
+      <Directory Id="AutoClipStudioMenuFolder" Name="AutoClip Studio" />
+    </Directory>
+
+    <Directory Id="DesktopFolder" Name="Desktop" />
+  </Directory>
+
+  <!-- Icon for shortcuts -->
+  <Icon Id="AppIcon.ico" SourceFile="$(var.AssetsSource)\icons\app.ico" />
+
+  <!-- Prerequisites: .NET 8 Desktop Runtime, VC++ Redistributable -->
+  <Property Id="NET8_DESKTOP_RUNTIME_INSTALLED">
+    <RegistrySearch Id="Net8DesktopRuntime"
+                    Root="HKLM"
+                    Key="SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost"
+                    Name="Version"
+                    Type="raw" />
+  </Property>
+
+  <Property Id="VC_REDIST_INSTALLED">
+    <RegistrySearch Id="VcRedist"
+                    Root="HKLM"
+                    Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                    Name="Installed"
+                    Type="raw" />
+  </Property>
+
+  <Condition Message="Se requiere .NET 8 Desktop Runtime. Se instalará automáticamente.">
+    <![CDATA[NET8_DESKTOP_RUNTIME_INSTALLED OR INSTALLING_NET8]]>
+  </Condition>
+
+  <Condition Message="Se requiere Visual C++ Redistributable. Se instalará automáticamente.">
+    <![CDATA[VC_REDIST_INSTALLED OR INSTALLING_VC_REDIST]]>
+  </Condition>
+</Wix>

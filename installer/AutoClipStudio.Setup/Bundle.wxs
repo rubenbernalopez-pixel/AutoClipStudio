@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+
+  <Bundle Name="AutoClip Studio"
+          Version="1.0.0"
+          Manufacturer="AutoClip Studio Team"
+          UpgradeCode="B2C3D4E5-F6A7-8901-BCDE-F23456789012"
+          Compressed="yes"
+          DisableModify="yes"
+          DisableRemove="no"
+          IconSourceFile="$(var.AssetsSource)\icons\app.ico"
+          SplashScreenSourceFile="$(var.AssetsSource)\icons\splash.png"
+          Copyright="Copyright © 2024 AutoClip Studio Team. Todos los derechos reservados."
+          LicenseUrl="https://autoclipstudio.com/license"
+          AboutUrl="https://autoclipstudio.com"
+          HelpUrl="https://autoclipstudio.com/docs"
+          UpdateUrl="https://updates.autoclipstudio.com/check">
+
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
+      <bal:WixStandardBootstrapperApplication
+        LicenseUrl="https://autoclipstudio.com/license"
+        LogoFile="$(var.AssetsSource)\icons\logo.png"
+        ThemeFile="$(var.AssetsSource)\installer\theme.xml"
+        LocalizationFile="$(var.AssetsSource)\installer\es-ES.wxl"
+        SuppressOptionsUI="yes"
+        SuppressRepair="yes" />
+    </BootstrapperApplicationRef>
+
+    <Chain>
+      <!-- .NET 8 Desktop Runtime -->
+      <ExePackage Id="Net8DesktopRuntime"
+                  SourceFile="$(var.PrereqsDir)\windowsdesktop-runtime-8.0.8-win-x64.exe"
+                  DownloadUrl="https://download.visualstudio.microsoft.com/download/pr/.../windowsdesktop-runtime-8.0.8-win-x64.exe"
+                  Compressed="no"
+                  InstallCommand="/install /quiet /norestart"
+                  UninstallCommand="/uninstall /quiet /norestart"
+                  DetectCondition="NET8_DESKTOP_RUNTIME_INSTALLED"
+                  InstallCondition="NOT NET8_DESKTOP_RUNTIME_INSTALLED"
+                  Permanent="yes"
+                  Vital="yes"
+                  PerMachine="yes"
+                  Protocol="net8"
+                  Hash="SHA256_HASH_HERE" />
+
+      <!-- Visual C++ Redistributable -->
+      <ExePackage Id="VcRedist"
+                  SourceFile="$(var.PrereqsDir)\VC_redist.x64.exe"
+                  DownloadUrl="https://aka.ms/vs/17/release/vc_redist.x64.exe"
+                  Compressed="no"
+                  InstallCommand="/install /quiet /norestart"
+                  UninstallCommand="/uninstall /quiet /norestart"
+                  DetectCondition="VC_REDIST_INSTALLED"
+                  InstallCondition="NOT VC_REDIST_INSTALLED"
+                  Permanent="yes"
+                  Vital="yes"
+                  PerMachine="yes"
+                  Hash="SHA256_HASH_HERE" />
+
+      <!-- FFmpeg (bundled, no separate install needed) -->
+
+      <!-- Main MSI -->
+      <MsiPackage Id="MainPackage"
+                  SourceFile="$(var.BuildOutput)\AutoClipStudio.msi"
+                  Compressed="yes"
+                  Vital="yes"
+                  DisplayInternalUI="no"
+                  ForcePerMachine="yes" />
+    </Chain>
+
+    <!-- Properties for detecting installed prerequisites -->
+    <Property Id="NET8_DESKTOP_RUNTIME_INSTALLED">
+      <RegistrySearch Id="Net8DesktopRuntime"
+                      Root="HKLM"
+                      Key="SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost"
+                      Name="Version"
+                      Type="raw" />
+    </Property>
+
+    <Property Id="VC_REDIST_INSTALLED">
+      <RegistrySearch Id="VcRedist"
+                      Root="HKLM"
+                      Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                      Name="Installed"
+                      Type="raw" />
+    </Property>
+  </Bundle>
+</Wix>
